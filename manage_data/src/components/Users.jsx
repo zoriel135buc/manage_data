@@ -3,24 +3,43 @@ import { useState } from "react";
 import OtherData from "./OtherData";
 import Update from "./Update";
 import Delete from "./Delete";
-
-const URL_TODOS = `https://jsonplaceholder.typicode.com/todos`;
+import { getById } from "../utils";
 
 const Users = ({ users }) => {
-  const [completed, setCompleted] = useState(true);
-
   return (
-    <div>
+    <div className="users-container">
       {users.map((user) => {
         return (
-          <div key={user.id} style={{ marginBottom: "20px" }}>
-            id:{user.id}
-            <br />
-            name:{user.name}
-            <br />
-            email:{user.email}
-            <br />
-            <OtherData />
+          <div
+            key={user.id}
+            className="user-card"
+            style={{
+              border: `2px solid ${user.hasUncompleted ? "red" : "green"}`,
+              padding: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            <p>
+              <strong>ID:</strong> <input placeholder={user.id} />
+            </p>
+            <p>
+              <strong>Name:</strong> <input placeholder={user.name} />
+            </p>
+            <p>
+              <strong>Email:</strong> <input placeholder={user.email} />
+            </p>
+            {/* <h4>Tasks:</h4>
+            <ul>
+              {user.todos.map((todo) => (
+                <li
+                  key={todo.id}
+                  style={{ color: todo.completed ? "green" : "red" }}
+                >
+                  {todo.title} - {todo.completed ? "Completed" : "Uncompleted"}
+                </li>
+              ))}
+            </ul> */}
+            <OtherData user={user} />
             <Update />
             <Delete />
           </div>

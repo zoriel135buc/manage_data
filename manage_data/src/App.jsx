@@ -6,6 +6,8 @@ import Search from "./components/Search";
 import Select from "./components/Select";
 import AddTask from "./components/AddTask";
 import axios from "axios";
+import Update from "./components/Update";
+import Delete from "./components/Delete";
 
 const URL_USERS = `https://jsonplaceholder.typicode.com/users`;
 const URL_TODOS = `https://jsonplaceholder.typicode.com/todos`;
@@ -13,6 +15,7 @@ const URL_TODOS = `https://jsonplaceholder.typicode.com/todos`;
 function App() {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [updateData, setUpdateData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +23,6 @@ function App() {
         const { data: name } = await axios.get(URL_USERS);
         const { data: todos } = await axios.get(URL_TODOS);
 
-        // Merge todos into users
         const usersWithTodos = name.map((user) => {
           const userTodos = todos.filter((todo) => todo.userId === user.id);
           const hasUncompleted = userTodos.some((todo) => !todo.completed);
@@ -53,8 +55,8 @@ function App() {
   return (
     <div className="App">
       <Search onSearch={handleSearch} />
-      <Users users={filteredUsers} />
-      <Select />
+      <Users users={filteredUsers} setUsers={setUsers} />
+
       <AddTask />
     </div>
   );

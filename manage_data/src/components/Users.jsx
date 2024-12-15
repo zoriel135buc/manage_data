@@ -3,9 +3,8 @@ import { useState } from "react";
 import OtherData from "./OtherData";
 import Update from "./Update";
 import Delete from "./Delete";
-import { getById } from "../utils";
 
-const Users = ({ users }) => {
+const Users = ({ users, setUsers }) => {
   return (
     <div className="users-container">
       {users.map((user) => {
@@ -41,7 +40,7 @@ const Users = ({ users }) => {
             </ul> */}
             <OtherData user={user} />
             <Update />
-            <Delete />
+            <Delete user={user} setUsers={setUsers} />
           </div>
         );
       })}

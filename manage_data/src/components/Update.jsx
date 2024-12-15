@@ -1,6 +1,6 @@
-import React from "react";
+import { useState } from "react";
 
-const Update = () => {
+const Update = ({ user, onUpdate }) => {
   return (
     <div>
       <button>update</button>

@@ -4,7 +4,8 @@ import OtherData from "./OtherData";
 import Update from "./Update";
 import Delete from "./Delete";
 
-const Users = ({ users, setUsers }) => {
+const Users = ({ users, setUsers, onDelete }) => {
+  const [updateData, setUpdateData] = useState({});
   return (
     <div className="users-container">
       {users.map((user) => {
@@ -22,10 +23,22 @@ const Users = ({ users, setUsers }) => {
               <strong>ID:</strong> <input placeholder={user.id} />
             </p>
             <p>
-              <strong>Name:</strong> <input placeholder={user.name} />
+              <strong>Name:</strong>{" "}
+              <input
+                onChange={(e) =>
+                  setUpdateData({ ...updateData, name: e.target.value })
+                }
+                placeholder={user.name}
+              />
             </p>
             <p>
-              <strong>Email:</strong> <input placeholder={user.email} />
+              <strong>Email:</strong>{" "}
+              <input
+                onChange={(e) =>
+                  setUpdateData({ ...updateData, email: e.target.value })
+                }
+                placeholder={user.email}
+              />
             </p>
             {/* <h4>Tasks:</h4>
             <ul>
@@ -39,8 +52,13 @@ const Users = ({ users, setUsers }) => {
               ))}
             </ul> */}
             <OtherData user={user} />
-            <Update />
-            <Delete user={user} setUsers={setUsers} />
+            <Update user={user} updateData={updateData} />
+            <Delete
+              user={user}
+              setUsers={setUsers}
+              users={users}
+              onDelete={onDelete}
+            />
           </div>
         );
       })}

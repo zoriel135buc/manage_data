@@ -41,7 +41,11 @@ function App() {
     };
     fetchData();
   }, []);
-
+  const handleDelete = (userId) => {
+    const updatedUsers = users.filter((user) => user.id !== userId);
+    setUsers(updatedUsers);
+    setFilteredUsers(updatedUsers);
+  };
   const handleSearch = (searchText) => {
     const lowerCaseQuery = searchText.toLowerCase();
     const filtered = users.filter(
@@ -55,8 +59,11 @@ function App() {
   return (
     <div className="App">
       <Search onSearch={handleSearch} />
-      <Users users={filteredUsers} setUsers={setUsers} />
-
+      <Users
+        users={filteredUsers}
+        setUsers={setUsers}
+        onDelete={handleDelete}
+      />
       <AddTask />
     </div>
   );

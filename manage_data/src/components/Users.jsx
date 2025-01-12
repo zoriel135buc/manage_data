@@ -3,6 +3,7 @@ import { useState } from "react";
 import OtherData from "./OtherData";
 import Update from "./Update";
 import Delete from "./Delete";
+import Select from "./Select";
 
 const Users = ({ users, setUsers, onDelete }) => {
   const [updateData, setUpdateData] = useState({});
@@ -20,7 +21,8 @@ const Users = ({ users, setUsers, onDelete }) => {
             }}
           >
             <p>
-              <strong>ID:</strong> <input placeholder={user.id} />
+              <strong>ID:</strong>
+              <button>{user.id}</button>
             </p>
             <p>
               <strong>Name:</strong>{" "}
@@ -40,17 +42,7 @@ const Users = ({ users, setUsers, onDelete }) => {
                 placeholder={user.email}
               />
             </p>
-            {/* <h4>Tasks:</h4>
-            <ul>
-              {user.todos.map((todo) => (
-                <li
-                  key={todo.id}
-                  style={{ color: todo.completed ? "green" : "red" }}
-                >
-                  {todo.title} - {todo.completed ? "Completed" : "Uncompleted"}
-                </li>
-              ))}
-            </ul> */}
+
             <OtherData user={user} />
             <Update user={user} updateData={updateData} />
             <Delete
@@ -59,6 +51,7 @@ const Users = ({ users, setUsers, onDelete }) => {
               users={users}
               onDelete={onDelete}
             />
+            <Select users={users} user={user} />
           </div>
         );
       })}
